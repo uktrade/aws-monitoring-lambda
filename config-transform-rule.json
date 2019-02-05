@@ -1,0 +1,19 @@
+{
+  "Targets": [{
+    "Id": "config-transform-rule",
+    "Arn": "arn:aws:sns:org-config-sns",
+    "InputTransformer": {
+      "InputPathsMap": {
+        "awsAccountId": "$.detail.awsAccountId",
+        "awsRegion": "$.detail.awsRegion",
+        "complianceType": "$.detail.newEvaluationResult.complianceType",
+        "configRuleName": "$.detail.configRuleName",
+        "resourceId": "$.detail.resourceId",
+        "resourceType": "$.detail.resourceType",
+        "source": "$.source",
+        "time": "$.time"
+      },
+      "InputTemplate": "[{\"title\": \"<resourceType> <resourceId> <complianceType>\",\"author_name\": \"<source>\",\"fields\": [{\"title\": \"Account ID\",\"value\": \"<awsAccountId>\",\"short\": \"true\"},{\"title\": \"Region\",\"value\": \"<awsRegion>\",\"short\": \"true\"},{\"title\": \"Resource Type\",\"value\": \"<resourceType>\",\"short\": \"true\"},{\"title\": \"Resource ID\",\"value\": \"<resourceId>\",\"short\": \"true\"},{\"title\": \"Config Rule\",\"value\": \"<configRuleName>\",\"short\": \"true\"},{\"title\": \"Compliance Status\",\"value\": \"<complianceType>\",\"short\": \"true\"},{\"title\": \"Timestamp\",\"value\": \"<time>\",\"short\": \"true\"}],\"fallback\": \"<resourceType> <resourceId> <complianceType>\"}]"
+    }
+  }]
+}
