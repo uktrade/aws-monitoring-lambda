@@ -1,0 +1,20 @@
+{
+  "Targets": [{
+    "Id": "guardduty-transform-rule",
+    "Arn": "arn:aws:sns:org-guardduty-sns",
+    "InputTransformer": {
+      "InputPathsMap": {
+        "actionType": "$.detail.service.action.actionType",
+        "arn": "$.detail.arn",
+        "awsAccountId": "$.detail.accountId",
+        "awsRegion": "$.detail.region",
+        "resourceType": "$.detail.resource.resourceType",
+        "severity": "$.detail.severity",
+        "source": "$.source",
+        "time": "$.time",
+        "type": "$.detail.type"
+      },
+      "InputTemplate": "[{\"title\": \"Severity <severity> - <type>/<resourceType> <actionType>\",\"author_name\": \"<source>\",\"fields\": [{\"title\": \"Account ID\",\"value\": \"<awsAccountId>\",\"short\": \"true\"},{\"title\": \"Region\",\"value\": \"<awsRegion>\",\"short\": \"true\"},{\"title\": \"Type\",\"value\": \"<type>/<resourceType>\",\"short\": \"true\"},{\"title\": \"Action\",\"value\": \"<actionType>\",\"short\": \"true\"},{\"title\": \"Severity\",\"value\": \"<severity>\",\"short\": \"true\"},{\"title\": \"ARN\",\"value\": \"<arn>\",\"short\": \"true\"},{\"title\": \"Timestamp\",\"value\": \"<time>\",\"short\": \"true\"}],\"fallback\": \"Severity <severity> - <type>/<resourceType> <actionType>\"}]"
+    }
+  }]
+}
